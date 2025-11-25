@@ -9,10 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* ===========================
-   GLOBAL + ORIGINAL STYLES
-=========================== */
-
 :root {
   --pink-dark: #ff1f7d;
   --pink-mid: #ff6fb5;
@@ -23,96 +19,21 @@
 }
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  font-family: "Quicksand", sans-serif;
-  background: #ffe3f3;
+  font-family: "Quicksand", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%, #ffe4f5 0, transparent 55%),
+    radial-gradient(circle at 90% 0%, #ffd6ec 0, transparent 55%),
+    linear-gradient(180deg, #fff7fc 0%, #ffd6ec 30%, #ffc4dd 60%, #ff9cc9 100%);
+  color: var(--text-main);
+  min-height: 100vh;
   overflow-x: hidden;
 }
-
-/* ===========================
-   PASSWORD SCREEN
-=========================== */
-
-#password-screen {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 20% 20%, #ffb6da, #ff7fb3, #ff4f9d);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  flex-direction: column;
-  text-align: center;
-  padding: 20px;
-}
-
-#password-box {
-  background: rgba(255,255,255,0.3);
-  padding: 28px;
-  border-radius: 22px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 20px rgba(255, 0, 98, 0.35);
-  border: 1px solid rgba(255,255,255,0.6);
-}
-
-#password-screen h1 {
-  font-family: "Playfair Display", serif;
-  color: white;
-  font-size: 2rem;
-  margin-bottom: 12px;
-  text-shadow: 0 3px 10px rgba(255, 0, 106, 0.6);
-}
-
-#password-input {
-  padding: 10px 14px;
-  font-size: 1rem;
-  border-radius: 12px;
-  border: none;
-  outline: none;
-  width: 180px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(255, 0, 122, 0.4);
-}
-
-#enter-btn {
-  margin-top: 14px;
-  background: linear-gradient(90deg, #ff8bc4, #ff1f7d);
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  font-size: 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(255, 0, 106, 0.5);
-  transition: 0.3s;
-}
-
-#enter-btn:hover {
-  transform: scale(1.05);
-}
-
-#error-msg {
-  margin-top: 10px;
-  color: #fff;
-  font-size: 0.9rem;
-  display: none;
-}
-
-/* HIDE MAIN CONTENT UNTIL PASSWORD SUCCESS */
-#main-content {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1s ease;
-}
-
-/* ===========================
-   ORIGINAL WEBSITE CONTENT
-=========================== */
 
 /* Floating background hearts */
 .heart-bg {
@@ -136,13 +57,44 @@ body {
   animation: floatUp 14s linear infinite;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(110vh) rotate(-45deg) scale(0.8); opacity: 0; }
-  50% { opacity: 0.8; }
-  100% { transform: translateY(-20vh) rotate(-45deg) scale(1.2); opacity: 0; }
+.heart-bg span::before,
+.heart-bg span::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
 }
 
-/* Whole previous layout preserved */
+.heart-bg span::before {
+  top: -50%;
+  left: 0;
+}
+
+.heart-bg span::after {
+  left: 50%;
+  top: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) rotate(-45deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-20vh) rotate(-45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Layout */
 .main-wrapper {
   position: relative;
   z-index: 1;
@@ -151,32 +103,366 @@ body {
   padding: 40px 18px 60px;
 }
 
+/* Glassy card base */
 .card {
   background: radial-gradient(circle at top left, rgba(255,255,255,0.96) 0%, rgba(255,230,245,0.96) 40%, rgba(255,205,238,0.94) 100%);
   border-radius: 24px;
-  padding: 24px;
+  box-shadow:
+    0 18px 45px rgba(255, 69, 160, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.7);
+  padding: 26px 24px;
   backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: 0 18px 45px rgba(255, 69, 160, 0.35);
-  margin-bottom: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  position: relative;
+  margin-bottom: 38px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,111,181,0.4);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pink-dark);
+  margin-bottom: 12px;
+}
+
+.hero-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: radial-gradient(circle, #fff 0, var(--pink-dark) 100%);
+  box-shadow: 0 0 10px rgba(255, 31, 125, 0.75);
+}
+
+.hero-main {
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.85) 0, rgba(255,192,226,0.85) 60%, rgba(255,143,201,0.9) 100%);
+  border-radius: 32px;
+  padding: 26px 16px 30px;
+  box-shadow:
+    0 22px 45px rgba(255, 56, 142, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-main::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  top: -120%;
+  background:
+    conic-gradient(from 200deg,
+    rgba(255,255,255,0.4),
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0));
+  opacity: 0.75;
+  animation: gentleGlow 8s linear infinite;
+}
+
+@keyframes gentleGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .hero-title {
   font-family: "Playfair Display", serif;
-  font-size: 3rem;
-  color: #4a0a27;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.5vw, 3rem);
+  color: #3d041f;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 2px 0 rgba(255,255,255,0.8),
+    0 6px 20px rgba(182, 25, 96, 0.7);
+}
+
+.hero-title span.heart {
+  color: var(--pink-dark);
+  text-shadow: 0 0 14px rgba(255, 31, 125, 0.8);
+}
+
+.hero-subtitle {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #5c1334;
+  opacity: 0.85;
+}
+
+.hero-note {
+  margin-top: 18px;
+  font-size: 1.05rem;
+  color: #50102f;
+}
+
+.hero-note strong {
+  background: linear-gradient(90deg, #ff4f9e, #ffb0d8);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.typewriter {
+  display: inline-block;
+  border-right: 2px solid rgba(255,255,255,0.9);
+  padding-right: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Small hearts around hero */
+.hero-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-decoration .mini-heart {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  transform: rotate(-45deg);
+  background: radial-gradient(circle at 30% 30%, #fff 0, #ff8bc4 40%, #ff1f7d 100%);
+  border-radius: 0 50% 50% 50%;
+  opacity: 0.8;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.hero-decoration .mini-heart::before,
+.hero-decoration .mini-heart::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.hero-decoration .mini-heart::before {
+  top: -50%;
+  left: 0;
+}
+.hero-decoration .mini-heart::after {
+  left: 50%;
+  top: 0;
+}
+
+.hero-decoration .mini-heart:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; }
+.hero-decoration .mini-heart:nth-child(2) { top: 18%; right: 12%; animation-delay: 0.7s; }
+.hero-decoration .mini-heart:nth-child(3) { bottom: 10%; left: 14%; animation-delay: 1.4s; }
+.hero-decoration .mini-heart:nth-child(4) { bottom: 5%; right: 18%; animation-delay: 2s; }
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(-45deg); opacity: 0.7; }
+  50%      { transform: scale(1.4) rotate(-45deg); opacity: 1; }
+}
+
+/* Section layout */
+.sections {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+  gap: 22px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 830px) {
+  .sections {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Reasons card */
+.section-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  color: #460c28;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  font-size: 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,174,210,0.8);
+  color: #82234a;
+  margin-bottom: 8px;
+}
+
+.chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background: radial-gradient(circle, #fff 0, var(--pink-mid) 100%);
+  box-shadow: 0 0 8px rgba(255, 111, 181, 0.9);
+}
+
+.reason-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.reason-item {
+  position: relative;
+  padding: 10px 12px 10px 28px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,188,227,0.9);
+  box-shadow: 0 4px 9px rgba(255, 90, 160, 0.18);
+  font-size: 0.92rem;
+  color: #5b1638;
+}
+
+.reason-item::before {
+  content: "♥";
+  position: absolute;
+  left: 9px;
+  top: 9px;
+  font-size: 0.85rem;
+  color: #ff3c8f;
+}
+
+/* Timeline / moments */
+.timeline {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 10px 12px 10px 18px;
+  border-radius: 14px;
+  background: rgba(255,248,252,0.98);
+  border: 1px dashed rgba(255,153,210,0.9);
+  font-size: 0.9rem;
+  color: #5b1334;
+}
+
+.timeline-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b22f63;
+  margin-bottom: 3px;
+}
+
+.timeline-heart {
+  position: absolute;
+  left: -6px;
+  top: 9px;
+  width: 14px;
+  height: 14px;
+  transform: rotate(-45deg);
+  background: radial-gradient(circle at 30% 30%, #fff 0, #ff8bc4 40%, #ff1f7d 100%);
+  border-radius: 0 50% 50% 50%;
+  box-shadow: 0 0 10px rgba(255, 50, 140, 0.8);
+}
+
+/* Love meter */
+.love-meter {
+  margin-bottom: 26px;
+  position: relative;
+}
+
+.meter-bar {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffe6f3, #ffd6ec);
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.8),
+    0 8px 18px rgba(255, 71, 158, 0.35);
+}
+
+.meter-fill {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff1f7d, #ff6fb5, #ffbce2);
+  box-shadow:
+    0 0 18px rgba(255, 31, 125, 0.9);
+  transform-origin: left center;
+}
+
+.meter-label {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  color: #5b1435;
+}
+
+/* Promise card */
+.promise-card {
   text-align: center;
 }
 
-.hero-title span {
-  color: var(--pink-dark);
-  text-shadow: 0 0 10px rgba(255, 31, 125, 0.8);
+.promise-text {
+  font-size: 0.95rem;
+  color: #5a1333;
+  margin: 8px 0 10px;
 }
 
-/* Scroll reveal + click hearts reused from before */
-.reveal { opacity: 0; transform: translateY(12px); transition: 1s; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.promise-highlight {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,223,244,0.95));
+  border: 1px solid rgba(255,156,213,0.9);
+  font-size: 0.86rem;
+  color: #8a264d;
+  box-shadow: 0 5px 14px rgba(255, 102, 170, 0.35);
+}
 
+/* Footer / signature */
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5b1334;
+  opacity: 0.9;
+}
+
+.footer-heart {
+  color: #ff1f7d;
+  text-shadow: 0 0 10px rgba(255, 31, 125, 0.9);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Click hearts (JS) */
 .click-heart {
   position: fixed;
   width: 22px;
@@ -185,142 +471,232 @@ body {
   background: radial-gradient(circle at 30% 30%, #fff 0, #ff8bc4 40%, #ff1f7d 100%);
   border-radius: 0 50% 50% 50%;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 10;
   animation: clickHeartFloat 1s ease-out forwards;
 }
 
-@keyframes clickHeartFloat {
-  0% { transform: translate(-50%, -50%) rotate(-45deg) scale(0.6); opacity:1; }
-  100% { transform: translate(-50%, -130%) rotate(-45deg) scale(0.2); opacity:0; }
+.click-heart::before,
+.click-heart::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
 }
 
+.click-heart::before {
+  top: -50%;
+  left: 0;
+}
+
+.click-heart::after {
+  left: 50%;
+  top: 0;
+}
+
+@keyframes clickHeartFloat {
+  0%   { transform: translate(-50%, -50%) rotate(-45deg) scale(0.6); opacity: 1; }
+  60%  { transform: translate(-50%, -95%) rotate(-45deg) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -130%) rotate(-45deg) scale(0.3); opacity: 0; }
+}
 </style>
 </head>
 <body>
 
-<!-- ===========================
-     PASSWORD SCREEN
-=========================== -->
-<div id="password-screen">
-  <div id="password-box">
-    <h1>Enter Password</h1>
-    <input type="password" id="password-input" placeholder="Password">
-    <button id="enter-btn">Unlock</button>
-    <div id="error-msg">Incorrect password. Try again.</div>
-  </div>
+<!-- Floating background hearts -->
+<div class="heart-bg" aria-hidden="true">
+  <!-- We'll make several hearts with different positions via inline styles -->
+  <span style="left:5%; animation-duration:18s;"></span>
+  <span style="left:18%; animation-duration:22s; animation-delay:-4s;"></span>
+  <span style="left:32%; animation-duration:16s; animation-delay:-8s;"></span>
+  <span style="left:48%; animation-duration:19s; animation-delay:-2s;"></span>
+  <span style="left:60%; animation-duration:21s; animation-delay:-6s;"></span>
+  <span style="left:74%; animation-duration:17s; animation-delay:-10s;"></span>
+  <span style="left:86%; animation-duration:23s; animation-delay:-3s;"></span>
 </div>
 
-<!-- ===========================
-     ORIGINAL WEBSITE CONTENT
-=========================== -->
-<div id="main-content">
+<div class="main-wrapper">
 
-  <!-- Background Hearts -->
-  <div class="heart-bg" aria-hidden="true">
-    <span style="left:5%; animation-duration:18s;"></span>
-    <span style="left:18%; animation-duration:22s; animation-delay:-4s;"></span>
-    <span style="left:32%; animation-duration:16s; animation-delay:-8s;"></span>
-    <span style="left:48%; animation-duration:19s; animation-delay:-2s;"></span>
-    <span style="left:60%; animation-duration:21s; animation-delay:-6s;"></span>
-    <span style="left:74%; animation-duration:17s; animation-delay:-10s;"></span>
-    <span style="left:86%; animation-duration:23s; animation-delay:-3s;"></span>
+  <!-- HERO -->
+  <section class="hero card reveal">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Infinite Edition · For Aayan, From Evanz
+    </div>
+
+    <div class="hero-main">
+      <div class="hero-decoration">
+        <div class="mini-heart"></div>
+        <div class="mini-heart"></div>
+        <div class="mini-heart"></div>
+        <div class="mini-heart"></div>
+      </div>
+
+      <h1 class="hero-title">
+        EVANZ <span class="heart">♥</span> AAYAN
+      </h1>
+      <p class="hero-subtitle">
+        Not just a crush. Not just a phase. A soft, loud, forever kind of love.
+      </p>
+
+      <p class="hero-note">
+        <span id="typewriter" class="typewriter"></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN SECTIONS -->
+  <div class="sections">
+
+    <!-- Reasons Section -->
+    <section class="card reveal">
+      <div class="chip">
+        <span class="chip-dot"></span>
+        Why Evanz is absolutely, hopelessly in love
+      </div>
+      <h2 class="section-title">Little reasons that feel like the whole world</h2>
+
+      <ul class="reason-list">
+        <li class="reason-item">
+          The way Aayan’s presence instantly turns an ordinary moment into a safe, warm, pink-hued memory.
+        </li>
+        <li class="reason-item">
+          The smile that shows up on Evanz’s face just by reading Aayan’s name on the screen.
+        </li>
+        <li class="reason-item">
+          The late-night talks, the random jokes, and how Evanz and Aayan copied for the exam together having each other's back.
+        </li>
+        <li class="reason-item">
+          The way Aayan is seen, understood, and chosen by Evanz again, again, and again.
+        </li>
+        <li class="reason-item">
+          Because out of every possible “what if”, Evanz still chooses “you and me” with Aayan, every time.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Memories / Moments Section -->
+    <section class="card reveal">
+      <div class="chip">
+        <span class="chip-dot"></span>
+        Tiny timeline · Huge feelings
+      </div>
+      <h2 class="section-title">Moments that made the love louder</h2>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-heart"></div>
+          <div class="timeline-label">THE FIRST SPARK</div>
+          The first time you both really talked—properly talked—something shifted. It felt easy. Familiar.
+          Like love quietly walked into the room and just sat there, smiling.
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-heart"></div>
+          <div class="timeline-label">INSIDE JOKES</div>
+          The jokes nobody else would understand. The screenshots. The “you had to be there” moments.
+          That’s a universe with just two people in it: Evanz and Aayan.
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-heart"></div>
+          <div class="timeline-label">SAFE SPACE</div>
+          On the good days, Aayan amplifies the happiness. On the bad days, Aayan softens the edges.
+          Either way, for Evanz, Aayan is home.
+        </article>
+      </div>
+    </section>
   </div>
 
-  <div class="main-wrapper">
-    
-    <!-- HERO -->
-    <section class="card hero reveal">
-      <h1 class="hero-title">EVANZ <span>♥</span> AAYAN</h1>
-      <p style="text-align:center; margin-top:10px;">
-        A love so real it needed its own website.  
-        Aayan, this is for you. From Evanz, with everything.
-      </p>
-    </section>
+  <!-- Love Meter + Promise -->
+  <div class="love-meter card reveal">
+    <div class="chip">
+      <span class="chip-dot"></span>
+      Scientifically inaccurate · Emotionally 100% correct
+    </div>
+    <h2 class="section-title">How much does Evanz love Aayan?</h2>
 
-    <!-- LOVE MESSAGE -->
-    <section class="card reveal">
-      <h2 style="font-family:Playfair Display; margin-bottom:10px;">A Letter Written in Pink</h2>
-      <p>
-        If love had a signature color, it would be this soft, glowing pink.
-        And if love had a name, today it would spell:
-        <strong style="color:#ff1f7d;">A A Y A N</strong>.
-        Because there is no world, no timeline, no version of reality where
-        Evanz does not choose you.
-      </p>
-    </section>
-
-    <!-- FOREVER PROMISE -->
-    <section class="card reveal">
-      <h2 style="font-family:Playfair Display;">Forever Means You</h2>
-      <p>
-        Every heartbeat, every smile, every soft thought that crosses his mind—
-        it always circles back to you.  
-        And if destiny is real, then surely it wrote your names next to each other.
-      </p>
-    </section>
-
-    <footer style="text-align:center; padding:20px; opacity:0.8;" class="reveal">
-      Made with ♥ by Evanz · Click anywhere to spawn hearts
-    </footer>
-
+    <div class="meter-bar">
+      <div class="meter-fill" id="meterFill"></div>
+    </div>
+    <div class="meter-label">
+      <span>0%</span>
+      <span>More than yesterday. Less than tomorrow.</span>
+      <span>∞</span>
+    </div>
   </div>
 
+  <div class="promise-card card reveal">
+    <div class="chip">
+      <span class="chip-dot"></span>
+      From Evanz, with way too much love
+    </div>
+    <h2 class="section-title">A small promise for a very big love</h2>
+    <p class="promise-text">
+      This page may just be pixels and code, but the feeling behind it is very, very real.
+      No matter how chaotic life gets, one thing stays constant:
+      <strong>Evanz is always, always rooting for Aayan.</strong>
+    </p>
+    <p class="promise-text">
+      In every version of the future, every parallel universe, every possible storyline—
+      there’s at least one where it’s simply: <em>Evanz &amp; Aayan, choosing each other.</em>
+    </p>
+
+    <div class="promise-highlight">
+      “You’re my favorite notification, my safest thought, and my softest forever.”
+    </div>
+  </div>
+
+  <footer class="footer reveal">
+    Crafted with <span class="footer-heart">♥</span> by Evanz for Aayan · Click anywhere to drop more hearts
+  </footer>
 </div>
 
 <script>
-/* ===========================
-   PASSWORD LOGIC
-=========================== */
-const PASSWORD = "AXE";
+/* Typewriter effect for love note */
+const typeText =
+  "If I could paint the sky the way I feel, it would just say one thing over and over again: “I love you, Aayan.”";
+const typewriterEl = document.getElementById("typewriter");
+let typeIndex = 0;
 
-document.getElementById("enter-btn").onclick = checkPass;
-document.getElementById("password-input").addEventListener("keypress", e => {
-  if (e.key === "Enter") checkPass();
-});
-
-function checkPass() {
-  const input = document.getElementById("password-input").value.trim();
-  const error = document.getElementById("error-msg");
-
-  if (input === PASSWORD) {
-    unlockContent();
+function typeWriter() {
+  if (!typewriterEl) return;
+  if (typeIndex <= typeText.length) {
+    typewriterEl.textContent = typeText.slice(0, typeIndex);
+    typeIndex++;
+    const delay = typeText[typeIndex - 1] === "." ? 160 : 55;
+    setTimeout(typeWriter, delay);
   } else {
-    error.style.display = "block";
-    error.textContent = "Incorrect password. Try again.";
+    // remove cursor after a while
+    setTimeout(() => {
+      typewriterEl.style.borderRightColor = "transparent";
+    }, 800);
   }
 }
-
-function unlockContent() {
-  const screen = document.getElementById("password-screen");
-  const main = document.getElementById("main-content");
-
-  screen.style.transition = "0.8s";
-  screen.style.opacity = "0";
-
-  setTimeout(() => {
-    screen.style.display = "none";
-    main.style.pointerEvents = "all";
-    main.style.opacity = "1";
-  }, 800);
-}
-
-/* ===========================
-   ORIGINAL JS EFFECTS
-=========================== */
 
 /* Scroll reveal */
 const revealEls = document.querySelectorAll(".reveal");
 
 function handleScrollReveal() {
-  const trigger = window.innerHeight * 0.85;
+  const trigger = window.innerHeight * 0.88;
   revealEls.forEach((el) => {
-    let rect = el.getBoundingClientRect();
-    if (rect.top < trigger) el.classList.add("visible");
+    const rect = el.getBoundingClientRect();
+    if (rect.top < trigger) {
+      el.classList.add("visible");
+    }
   });
 }
 
-window.addEventListener("scroll", handleScrollReveal);
-window.addEventListener("load", handleScrollReveal);
+/* Love meter fill animation */
+const meterFill = document.getElementById("meterFill");
+function animateMeter() {
+  if (!meterFill) return;
+  meterFill.style.transition = "width 2.2s cubic-bezier(0.25, 0.9, 0.3, 1.2)";
+  requestAnimationFrame(() => {
+    meterFill.style.width = "100%";
+  });
+}
 
 /* Click hearts */
 function spawnClickHeart(x, y) {
@@ -332,8 +708,18 @@ function spawnClickHeart(x, y) {
   setTimeout(() => heart.remove(), 1000);
 }
 
-window.addEventListener("click", e => spawnClickHeart(e.clientX, e.clientY));
-</script>
+/* Init */
+window.addEventListener("load", () => {
+  typeWriter();
+  handleScrollReveal();
+  animateMeter();
+});
 
+window.addEventListener("scroll", handleScrollReveal);
+
+window.addEventListener("click", (e) => {
+  spawnClickHeart(e.clientX, e.clientY);
+});
+</script>
 </body>
 </html>
